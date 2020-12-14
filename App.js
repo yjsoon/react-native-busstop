@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   ActivityIndicator,
   StyleSheet,
@@ -7,8 +7,16 @@ import {
   View,
 } from "react-native";
 
+const BUSSTOP_URL = "https://arrivelah2.busrouter.sg/?id=83139";
+
 export default function App() {
   const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch(BUSSTOP_URL)
+      .then((response) => response.json())
+      .then((responseData) => console.log(responseData));
+  }, []);
 
   return (
     <View style={styles.container}>
