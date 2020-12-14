@@ -15,7 +15,13 @@ export default function App() {
   function loadBusStopData() {
     fetch(BUSSTOP_URL)
       .then((response) => response.json())
-      .then((responseData) => console.log(responseData));
+      .then((responseData) => {
+        //console.log(responseData)
+        const myBus = responseData.services.filter(
+          (item) => item.no === "155"
+        )[0];
+        console.log(myBus);
+      });
   }
 
   useEffect(() => {
