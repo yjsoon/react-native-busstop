@@ -12,10 +12,14 @@ const BUSSTOP_URL = "https://arrivelah2.busrouter.sg/?id=83139";
 export default function App() {
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
+  function loadBusStopData() {
     fetch(BUSSTOP_URL)
       .then((response) => response.json())
       .then((responseData) => console.log(responseData));
+  }
+
+  useEffect(() => {
+    loadBusStopData();
   }, []);
 
   return (
