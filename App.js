@@ -24,13 +24,19 @@ export default function App() {
           (item) => item.no === "155"
         )[0];
         console.log(myBus);
-        setArrival(myBus.next.time);
+        const duration_s = Math.floor(myBus.next.duration_ms / 1000)
+        const minutes = Math.floor(duration_s / 60)
+        const seconds = duration_s % 60
+        setArrival(`${minutes} minutes and ${seconds} seconds`);
         setLoading(false);
       });
   }
 
   useEffect(() => {
+    const interval = setInterval(loadBusStopData, 15000);
     loadBusStopData();
+
+    return () => clearInterval(interval);
   }, []);
 
   return (
@@ -61,6 +67,7 @@ const styles = StyleSheet.create({
   arrivalTime: {
     fontSize: 36,
     marginBottom: 24,
+    textAlign: "center"
   },
   button: {
     backgroundColor: "green",
