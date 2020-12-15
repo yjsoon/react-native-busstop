@@ -10,6 +10,7 @@ import {
 const BUSSTOP_NUMBER = "83139";
 const BUS_NUMBER = "155";
 const BUSSTOP_URL = "https://arrivelah2.busrouter.sg/?id=" + BUSSTOP_NUMBER;
+const LOADING_INTERVAL = 60000;
 
 export default function App() {
   const [loading, setLoading] = useState(true);
@@ -35,8 +36,8 @@ export default function App() {
   }
 
   useEffect(() => {
-    const interval = setInterval(loadBusStopData, 15000);
-    loadBusStopData();
+    const interval = setInterval(loadBusStopData, LOADING_INTERVAL);
+    loadBusStopData(); // need to call it once at the start
 
     return () => clearInterval(interval);
   }, []);
@@ -47,7 +48,7 @@ export default function App() {
       <Text style={styles.arrivalTime}>
         {loading ? <ActivityIndicator size="large" color="#aa8" /> : arrival}
       </Text>
-      <TouchableOpacity onPress={null} style={styles.button}>
+      <TouchableOpacity onPress={loadBusStopData} style={styles.button}>
         <Text style={styles.buttonText}>Refresh</Text>
       </TouchableOpacity>
     </View>
