@@ -7,7 +7,9 @@ import {
   View,
 } from "react-native";
 
-const BUSSTOP_URL = "https://arrivelah2.busrouter.sg/?id=83139";
+const BUSSTOP_NUMBER = "83139";
+const BUS_NUMBER = "155";
+const BUSSTOP_URL = "https://arrivelah2.busrouter.sg/?id=" + BUSSTOP_NUMBER;
 
 export default function App() {
   const [loading, setLoading] = useState(true);
@@ -21,12 +23,12 @@ export default function App() {
       .then((responseData) => {
         //console.log(responseData)
         const myBus = responseData.services.filter(
-          (item) => item.no === "155"
+          (item) => item.no === BUS_NUMBER
         )[0];
         console.log(myBus);
-        const duration_s = Math.floor(myBus.next.duration_ms / 1000)
-        const minutes = Math.floor(duration_s / 60)
-        const seconds = duration_s % 60
+        const duration_s = Math.floor(myBus.next.duration_ms / 1000);
+        const minutes = Math.floor(duration_s / 60);
+        const seconds = duration_s % 60;
         setArrival(`${minutes} minutes and ${seconds} seconds`);
         setLoading(false);
       });
@@ -67,7 +69,7 @@ const styles = StyleSheet.create({
   arrivalTime: {
     fontSize: 36,
     marginBottom: 24,
-    textAlign: "center"
+    textAlign: "center",
   },
   button: {
     backgroundColor: "green",
